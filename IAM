@@ -1,0 +1,3 @@
+AWS IAM 
+Roles--collection of permissions we apply to services like EC2 ,RDS (attach newly  roles to these services like ec2,rds etc  ) 
+
