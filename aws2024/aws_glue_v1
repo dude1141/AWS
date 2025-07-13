@@ -1,0 +1,5 @@
+crawlers determin schema for your data, and creates metadata tables in data catalogue
+
+you have add DATABASE
+
+once data loaded can be queried using AWS Athena.
