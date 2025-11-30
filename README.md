@@ -6,3 +6,4 @@
 5. Kafka https://www.youtube.com/watch?v=GteThR_d8Yo
 6. Confluent kafka https://www.youtube.com/watch?v=iJI3Bku4GDU
 7. unitycatalogue enabling prt1 https://youtu.be/sVc9m1sQxiY
+8. unitycatalogue tables volumes masking prt1 https://youtu.be/Ye96j4YcAMU
