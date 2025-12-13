@@ -8,4 +8,4 @@
 7. unitycatalogue enabling prt1 https://youtu.be/sVc9m1sQxiY
 8. unitycatalogue tables volumes masking prt1 https://youtu.be/Ye96j4YcAMU
 9. reading from aws ec2 ubuntu and set envs spark https://youtu.be/R-G9ocORYwM
-10. AWS glue https://www.youtube.com/watch?v=2B9gAuTvWpY
+10. AWS glue https://www.youtube.com/watch?v=g5B-fSQxO70 no voice
