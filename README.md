@@ -10,3 +10,4 @@
 9. reading from aws ec2 ubuntu and set envs spark https://youtu.be/R-G9ocORYwM
 10. AWS glue https://www.youtube.com/watch?v=g5B-fSQxO70 no voice
 11. confluent read logs https://youtu.be/IY3ubyTpHhM
+12. AWS step functions dynamodb https://youtu.be/0gc63aMtYo0
