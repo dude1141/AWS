@@ -1,4 +1,6 @@
-og in to the AWS Management Console using the credentials provided on the lab instructions page. Make sure you're using the us-east-1 Region.
+https://github.com/ACloudGuru-Resources/content-processing-serverless-data-aws-lambda/tree/main
+
+log in to the AWS Management Console using the credentials provided on the lab instructions page. Make sure you're using the us-east-1 Region.
 
 Set Up S3
 Navigate to the S3 console by searching for and selecting S3 in the top search bar, or selecting it from Recently Visited.
