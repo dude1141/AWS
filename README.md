@@ -12,3 +12,4 @@
 11. confluent read logs https://youtu.be/IY3ubyTpHhM
 12. AWS step functions dynamodb https://youtu.be/0gc63aMtYo0
 13. aws vpc https://youtu.be/cKzESgBmTU8
+14. AWS KMS https://youtu.be/YmWxG9AOOq4
