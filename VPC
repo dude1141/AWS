@@ -36,3 +36,45 @@ Subnets
 Route Table
    ↓ (has route)
 0.0.0.0/0 → IGW
+
+
+
+
+
+                     Internet
+                         |
+                         |
+                 +----------------+
+                 | Internet Gateway|
+                 +----------------+
+                         |
+                         |
+        -------------------------------------------------
+        |              AWS VPC (10.0.0.0/16)            |
+        |                                               |
+        |   Route Tables                                |
+        |   -------------                               |
+        |   Public RT:                                  |
+        |     0.0.0.0/0 -> IGW                          |
+        |   Private RT:                                 |
+        |     (no internet route)                       |
+        |                                               |
+        |   Network ACLs (Subnet-level, stateless)      |
+        |   --------------------------------------      |
+        |   NACL (applies to both subnets)              |
+        |                                               |
+        |   +-------------------+   +-------------------+
+        |   |  Public Subnet    |   |  Private Subnet   |
+        |   |  10.0.1.0/24      |   |  10.0.2.0/24      |
+        |   |                   |   |                   |
+        |   |  EC2 (Public)     |   |  EC2 (Private)    |
+        |   |  Public IP: YES   |   |  Public IP: NO    |
+        |   |  Private IP: YES  |   |  Private IP: YES  |
+        |   |                   |   |                   |
+        |   |  Security Group   |   |  Security Group   |
+        |   |  (instance-level, |   |  (instance-level, |
+        |   |   stateful)       |   |   stateful)       |
+        |   +-------------------+   +-------------------+
+        |                                               |
+        -------------------------------------------------
+
