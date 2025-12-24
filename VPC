@@ -1,0 +1,38 @@
+Define the network boundary (VPC)
+
+Enable internet capability (IGW)
+
+
+✔ IGW is attached to the VPC
+✔ Route table references this IGW
+✔ Subnet associated with that route table becomes public
+
+
+Segment the network (subnets)
+
+Control traffic paths (route tables)
+Route tables do nothing until they are associated with subnets.
+Public route table → Public subnet
+Private route table → Private subnet
+
+Enforce routing behavior (associations)
+Apply instance security (security groups)
+Apply subnet security (NACLs)
+Deploy compute (EC2)
+Validate internal vs external access
+
+Network Access Control Lists (ACLs) in AWS are used to control inbound and outbound traffic at the subnet level. 
+
+Route tables do nothing until they are associated with subnets.
+Public route table → Public subnet
+Private route table → Private subnet
+
+Internet Gateway
+   ↓ (attached to)
+VPC
+   ↓ (contains)
+Subnets
+   ↓ (associated with)
+Route Table
+   ↓ (has route)
+0.0.0.0/0 → IGW
