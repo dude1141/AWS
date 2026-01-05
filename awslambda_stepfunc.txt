@@ -1,4 +1,38 @@
 https://github.com/ACloudGuru-Resources/content-processing-serverless-data-aws-lambda/tree/main
+{
+  "Comment": "Rewards Processor State Machine",
+  "StartAt": "AssessStudent",
+  "States": {
+    "AssessStudent": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.Score",
+          "NumericGreaterThan": 74,
+          "Next": "UnlockPremiumCourses"
+        },
+        {
+          "Variable": "$.Score",
+          "NumericLessThan": 75,
+          "Next": "UnlockPremiumLessons"
+        }
+      ]
+},
+
+    "UnlockPremiumCourses": {
+      "Type": "Task",
+      "Resource": "Insert the ARN of your UnlockPremiumCoursesFunction",
+      "End": true
+    },
+    "UnlockPremiumLessons": 
+    {
+      "Type": "Task",
+      "Resource": "Insert the ARN of your UnlockPremiumLesson",
+      "End": true
+    }
+  }
+}
+
 
 log in to the AWS Management Console using the credentials provided on the lab instructions page. Make sure you're using the us-east-1 Region.
 
