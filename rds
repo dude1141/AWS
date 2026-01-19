@@ -5,9 +5,9 @@ from sqlalchemy import create_engine
 
 csv_file_path = r"C:\Users\mouni\Downloads\Salescsvfile.csv"
 
-host = 'database-2.c0vy4w4wm3nx.us-east-1.rds.amazonaws.com'
+host = 'database-2.c0vxxxxxxnx.us-east-1.rds.amazonaws.com'
 user = 'admin'
-password = '12345678'
+password = '12xxxxx8'
 database = 'salesdbdev'
 
 print("step1")
