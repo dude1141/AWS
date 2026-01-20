@@ -14,3 +14,4 @@
 13. aws vpc https://youtu.be/cKzESgBmTU8
 14. AWS KMS https://youtu.be/YmWxG9AOOq4
 15. AWS secret manager https://youtu.be/8Oscrn2MR8o
+16. RDS using secrets manager and load https://youtu.be/dOBL4r1TF8k
