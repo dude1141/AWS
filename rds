@@ -104,5 +104,55 @@ except Exception as e:
     print("ERROR while loading data:", e)
 
 
+----------------
+
+import json
+import boto3
+import pandas as pd
+from sqlalchemy import create_engine
+
+# ------------------ CONFIG ------------------
+
+csv_file_path = r"C:\Users\mouni\Downloads\Salescsvfile.csv"
+secret_name = "/dev/rds/database2"
+region_name = "us-east-1"
+table_name = "sales"
+
+# ------------------ GET SECRET ------------------
+
+session = boto3.Session()
+client = session.client("secretsmanager", region_name=region_name)
+
+response = client.get_secret_value(SecretId=secret_name)
+secret = json.loads(response["SecretString"])
+
+host = secret["host"]
+user = secret["username"]
+password = secret["password"]
+database = secret.get("database") or secret.get("dbname")
+port = secret.get("port", 3306)
+
+# ------------------ LOAD CSV ------------------
+
+df = pd.read_csv(csv_file_path)
+
+# ------------------ DB ENGINE ------------------
+
+engine = create_engine(
+    f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}"
+)
+
+# ------------------ INSERT DATA ------------------
+
+df.to_sql(
+    table_name,
+    con=engine,
+    index=False,
+    if_exists="append",
+    method="multi",
+    chunksize=1000
+)
+
+print("✅ Data successfully loaded into MySQL RDS")
 
 
