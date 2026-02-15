@@ -1,0 +1,180 @@
+https://github.com/ACloudGuru-Resources/content-processing-serverless-data-aws-lambda/tree/main
+{
+  "Comment": "Rewards Processor State Machine",
+  "StartAt": "AssessStudent",
+  "States": {
+    "AssessStudent": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.Score",
+          "NumericGreaterThan": 74,
+          "Next": "UnlockPremiumCourses"
+        },
+        {
+          "Variable": "$.Score",
+          "NumericLessThan": 75,
+          "Next": "UnlockPremiumLessons"
+        }
+      ]
+},
+
+    "UnlockPremiumCourses": {
+      "Type": "Task",
+      "Resource": "Insert the ARN of your UnlockPremiumCoursesFunction",
+      "End": true
+    },
+    "UnlockPremiumLessons": 
+    {
+      "Type": "Task",
+      "Resource": "Insert the ARN of your UnlockPremiumLesson",
+      "End": true
+    }
+  }
+}
+
+
+log in to the AWS Management Console using the credentials provided on the lab instructions page. Make sure you're using the us-east-1 Region.
+
+Set Up S3
+Navigate to the S3 console by searching for and selecting S3 in the top search bar, or selecting it from Recently Visited.
+On the right, click Create bucket.
+Under Bucket name, enter miths-rewards-datafeed followed by some characters to make it unique.
+Leave the other settings at default, and click Create bucket.
+Under Buckets, click on the miths-rewards-datafeed bucket.
+Under Objects, click Create folder.
+Under Folder name, enter miths-premium-courses.
+Click Create folder.
+Click Create folder again; under Folder name, enter miths-premium-lessons.
+Click Create folder.
+Populate the Buckets with CSV Files
+To populate the buckets with the CSV files, navigate to the GitHub repository and download the CSV files.
+Note: If necessary, review the How to Download a CSV from GitHub page.
+
+Click on the miths-premium-courses folder.
+In the upper right corner, click Upload.
+Next to Files and folders, click Add files.
+Select the premium-courses.csv file, and click Open.
+Click Upload.
+In the upper right corner, click Close.
+In the upper left breadcrumb trail, click on your bucket name.
+Under Objects, click miths-premium-lessons.
+In the upper right corner, click Upload.
+Next to Files and Folders, click Add files.
+Select the premium-lessons.csv file, and click Open.
+Click Upload.
+Create the Lambda Functions
+Create the First Lambda Function
+In the search bar at the top, search for and select Lambda.
+In the upper right corner, click Create function.
+Under Create function, ensure Author from scratch is selected.
+Under Basic information, set the following values:
+Function name: Enter UnlockPremiumCourses.
+Runtime: Select Python 3.9.
+Architecture: Select x86_64.
+Leave the other settings at default, and click Create function; this may take a few minutes.
+Once the function is created, under Code source > lambda_function, delete the code and paste in the code found in the GitHub repository under unlock_premium_courses_lambda_function.
+Update the bucket name on line 4 to match your bucket name (e.g., miths-rewards-datafeed).
+At the top, click Deploy to save the changes.
+Toward the top, under Function overview, click Layers.
+Next to Layers, click Add a layer.
+Under Choose a layer, set the following values:
+Layer source: Ensure AWS layers is selected.
+AWS layers: Select AWSSDKPandas-Python39.
+Version: Select the available version.
+Click Add.
+Under Function overview, on the right, copy the function ARN and paste it in a separate text file for use later.
+Create the Second Lambda Function
+In the upper left breadcrumb trail, click Functions.
+In the upper right corner, click Create Function.
+Under Create function, ensure Author from scratch is selected.
+Under Basic Information, set the following values:
+Function name: Enter UnlockPremiumLessons.
+Runtime: Select Python 3.9.
+Architecture: Select x86_64.
+Leave the other settings at default, and click Create function; this may take a few minutes.
+Toward the top, under Function overview, click Layers.
+Next to Layers, click Add a layer.
+Under Choose a layer, set the following values:
+Layer source: Ensure AWS layers is selected.
+AWS layers: Select AWSSDKPandas-Python39.
+Version: Select the available version.
+Click Add.
+Under Code source > lambda_function, delete the code and paste in the code found in the GitHub repository under unlock_premium_lessons_lambda_function.py.
+Update the bucket name on line 4 to match your bucket name.
+At the top, click Deploy to save the changes.
+Under Function overview, on the right, copy the function ARN and paste it in a separate text file for use later.
+Grant Functions Access to S3
+Click on the Configuration tab.
+In the left navigation menu, under General configuration, click Permissions.
+Under Execution role, click on the listed role name.
+Next to Permissions policies, click on the Add permissions dropdown menu and select Attach policies.
+In the upper right corner, click Create policy.
+In the Visual editor tab, click on Service to expand the menu.
+In the search bar, search for and select S3.
+Expand the Actions menu. Under Access level, expand the List sub-menu, and select ListBucket.
+Expand the Read sub-menu, and select GetObject.
+Expand the Resources menu.
+Next to bucket, click on the Add ARN hyperlink.
+In the Add ARN(s) pop-up menu, next to Bucket name, enter the name of your bucket.
+Copy your bucket name, then click Add.
+Next to object, click on the Add ARN hyperlink and set the following values:
+Bucket name: Paste in your bucket name.
+Object name: Select Any.
+Click Add.
+Click Next until you get to Create policy.
+Next to Name, enter ReadS3RewardsDatafeed; copy ReadS3RewardsDatafeed for later.
+Click Create policy.
+Attach Policies
+In the left navigation menu under Access management, click Roles.
+In the Roles search bar, enter courses.
+Click on the UnlockPremiumCourses role.
+Next to Permissions policies, click on the Add permissions dropdown menu and select Attach policies.
+In the Other permissions policies search bar, paste in ReadS3RewardsDatafeed and press Enter.
+Click on the checkbox next to ReadS3RewardsDatafeed.
+Click Attach policies.
+In the upper left breadcrumb trail, click Roles.
+In the Roles search bar, enter lesson, and select the UnlockPremiumLessons role.
+Next to Permissions policies, click on the Add permissions dropdown menu and select Attach policies.
+In the Other permissions policies search bar, paste in ReadS3RewardsDatafeed and press Enter.
+Click on the checkbox next to ReadS3RewardsDatafeed.
+Click Attach policies.
+Set Up IAM Roles
+In the left navigation menu, under Access management, click Roles.
+In the upper right corner, click Create role.
+Under Trusted entity type, ensure AWS service is selected.
+Under Use case, beneath Use cases for other AWS services, click on the dropdown menu and select Step Functions (in the search bar, you can search Step Functions).
+Underneath the Step Functions dropdown menu, click on the radio button next to Step Functions.
+Click Next.
+Under Permissions policies, click on the + icon next to AWSLambdaRole to confirm the Step Functions can invoke Lambda.
+Click Next.
+Under Role details > Role name, enter StepFunctionsInvokeLambdaRole.
+Leave the other settings at default, scroll down, and click Create role
+
+
+Set Up AWS Step Functions
+In the search bar at the top, search for and select Step Functions.
+Under Get started on the right, click Get started.
+In the line of text under Review Hello World example, click on the here hyperlink.
+Under Choose authoring method, select Write your workflow in code.
+Under Definition, delete the code and paste in the code found in the GitHub repository under state-machine-code.json.
+Scroll down to line 23, and replace Insert the ARN of your UnlockPremiumCoursesFunction with the corresponding ARN you previously pasted in the separate text file.
+On line 29, replace Insert the ARN of your UnlockPremiumLesson with the corresponding ARN you previously pasted in the separate text file.
+Click Next.
+Under Name, enter RewardsProcessorStateMachine.
+Under Permissions, select Choose an existing role.
+Leave the other settings at default, and click Create state machine.
+Test the Step Functions
+In the upper right corner, click Start execution.
+In the Start execution pop-up menu, under Input, update the following values:
+Highlight and delete Comment, then type Score.
+Highlight and delete "Insert your JSON here", then type 30.
+Click Start execution.
+Under Graph view, click on the UnlockPremiumLessons button.
+To the right of Graph view, ensure the Input and output provides the correct output (i.e., the state machine triggers the Lambda function that returns the premium lessons).
+In the upper right corner, click New execution.
+In the Start execution pop-up menu, replace 30 with 80.
+Click Start execution.
+Under Graph view, click on the UnlockPremiumCourses button.
+To the right of Graph view, ensure the Input and output provides the correct output (i.e., the state machine triggers the Lambda function that returns the premium courses).
+Conclusion

@@ -1,0 +1,83 @@
+import pandas as pd
+from sqlalchemy import create_engine
+import boto3
+import json
+from botocore.exceptions import ClientError
+
+# ---------------- CONFIG ----------------
+csv_file_path = r"C:\Users\mouni\Downloads\Salescsvfile.csv"
+secret_name = "/dev/rds/database2"
+region_name = "us-east-1"
+sns_topic_name = "newtopic"
+# ----------------------------------------
+
+
+def get_secret():
+    try:
+        client = boto3.client("secretsmanager", region_name=region_name)
+        response = client.get_secret_value(SecretId=secret_name)
+        return json.loads(response["SecretString"])
+    except ClientError as e:
+        raise RuntimeError(f"Secrets Manager error: {e}")
+
+
+def publish_sns_failure():
+    try:
+        sns = boto3.client("sns", region_name=region_name)
+
+        # Get topic ARN dynamically
+        topics = sns.list_topics()["Topics"]
+        topic_arn = None
+
+        for topic in topics:
+            if sns_topic_name in topic["TopicArn"]:
+                topic_arn = topic["TopicArn"]
+                break
+
+        if not topic_arn:
+            raise RuntimeError("SNS topic not found")
+
+        sns.publish(
+            TopicArn=topic_arn,
+            Subject="Sales job failed to load RDS table",
+            Message="Support Team, Please look into it."
+        )
+
+    except Exception as sns_error:
+        print("SNS Notification Failed:", sns_error)
+
+
+# ---------------- MAIN EXECUTION ----------------
+
+try:
+    print("Fetching DB credentials...")
+    secret = get_secret()
+
+    host = secret["host"]
+    user = secret["username"]
+    password = secret["password"]
+    database = secret["dbname"]  # or 'dbname'
+
+    print("Reading CSV...")
+    df = pd.read_csv(csv_file_path)
+
+    print("Creating DB connection...")
+    engine = create_engine(
+        f"mysql+pymysql://{user}:{password}@{host}/{database}"
+    )
+
+    print("Loading data into RDS...")
+    df.to_sql(
+        "sales",
+        con=engine,
+        index=False,
+        if_exists="append",
+        method="multi",
+        chunksize=1000
+    )
+
+    print("Data successfully loaded into MySQL RDS")
+
+except Exception as e:
+    print("ERROR OCCURRED:", e)
+    publish_sns_failure()
