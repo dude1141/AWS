@@ -16,3 +16,4 @@
 15. AWS secret manager https://youtu.be/8Oscrn2MR8o
 16. RDS using secrets manager and load https://youtu.be/dOBL4r1TF8k
 17. AWS lambda and using layers and create a zipfile for layers https://youtu.be/J54qszEhc4A
+18. AWS Agentic AI bedrock building https://youtu.be/dytpiF-WXEQ
