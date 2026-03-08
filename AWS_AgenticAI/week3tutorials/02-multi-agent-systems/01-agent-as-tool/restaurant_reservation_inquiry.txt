@@ -1,0 +1,38 @@
+RESTAURANT RESERVATION INQUIRY
+
+Thank you for your interest in making a restaurant reservation! To assist you in finding and booking the perfect restaurant, please provide the following information:
+
+1. LOCATION
+   - City/Area: ___________________
+   - Neighborhood preference: ___________________
+
+2. RESERVATION DETAILS
+   - Date: ___________________
+   - Time: ___________________
+   - Number of guests: ___________________
+
+3. PREFERENCES
+   - Cuisine type: ___________________
+   - Atmosphere (casual, fine dining, romantic, family-friendly): ___________________
+   - Budget per person: ___________________
+
+4. SPECIAL REQUIREMENTS
+   - Dietary restrictions: ___________________
+   - Occasion (birthday, anniversary, business dinner): ___________________
+   - Seating preferences (indoor, outdoor, private room): ___________________
+   - Accessibility needs: ___________________
+
+5. ADDITIONAL NOTES
+   ___________________________________________
+   ___________________________________________
+
+Once you provide these details, I can help you find suitable restaurants and guide you through the reservation process.
+
+POPULAR RESERVATION PLATFORMS:
+- OpenTable (www.opentable.com)
+- Resy (www.resy.com)
+- Yelp Reservations
+- Direct restaurant websites
+- Google Maps reservations
+
+Please fill out this information and I'll be happy to assist you further!
