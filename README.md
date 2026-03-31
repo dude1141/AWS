@@ -18,3 +18,4 @@
 17. AWS lambda and using layers and create a zipfile for layers https://youtu.be/J54qszEhc4A
 18. AWS Agentic-AI bedrock building https://youtu.be/dytpiF-WXEQ
 19. AWS Agentic-AI build strand agents and toolss https://youtu.be/2BgfwN5QHv8
+20. AWS SNS Glue https://youtu.be/dpMkK4Ki4RM
